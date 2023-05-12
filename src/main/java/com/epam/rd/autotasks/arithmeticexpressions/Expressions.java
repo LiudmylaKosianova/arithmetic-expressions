@@ -41,23 +41,25 @@ Example: sum(val(1), val(2), val(3)).toExpressionString() results to (1 + 2 + 3)
 
     public static Expression sum(Expression... members){
         //implement this method
-        int sum = 0;
-        for(Expression member:members){
-            sum+=member.evaluate();
-        }
-        Expression answer = new Expression(){
-
+        return new Expression() {
             @Override
             public int evaluate() {
+                int sum = 0;
+                for(Expression rabbit:members){
+                    sum+= rabbit.evaluate();
+                }
                 return sum;
             }
 
             @Override
             public String toExpressionString() {
-                return null;
+                String answer = "";
+                for(Expression rabbit: members){
+                    answer+= rabbit.toExpressionString()+" + ";
+                }
+                return "("+answer.substring(0,answer.length()-3)+")";
             }
         };
-        return null;
     }
 
     public static Expression product(Expression... members){
