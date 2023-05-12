@@ -64,17 +64,58 @@ Example: sum(val(1), val(2), val(3)).toExpressionString() results to (1 + 2 + 3)
 
     public static Expression product(Expression... members){
         //implement this method
-        return null;
+
+        return new Expression() {
+            @Override
+            public int evaluate() {
+                int product = 1;
+                for(Expression rabbit:members){
+                    product*= rabbit.evaluate();
+                }
+                return product;
+            }
+
+            @Override
+            public String toExpressionString() {
+                String answer = "";
+                for(Expression rabbit: members){
+                    answer+= rabbit.toExpressionString()+" * ";
+                }
+                return "("+answer.substring(0,answer.length()-3)+")";
+            }
+        };
     }
 
     public static Expression difference(Expression minuend, Expression subtrahend){
         //implement this method
-        return null;
+
+        return new Expression() {
+            @Override
+            public int evaluate() {
+                return minuend.evaluate() - subtrahend.evaluate();
+            }
+
+            @Override
+            public String toExpressionString() {
+
+                return "("+minuend.toExpressionString()+ " - "+subtrahend.toExpressionString()+")";
+            }
+        };
     }
 
     public static Expression fraction(Expression dividend, Expression divisor){
         //implement this method
-        return null;
+        return new Expression() {
+            @Override
+            public int evaluate() {
+                return dividend.evaluate() / divisor.evaluate();
+            }
+
+            @Override
+            public String toExpressionString() {
+                return "("+dividend.toExpressionString()+" / "+divisor.toExpressionString()+")";
+            }
+        };
     }
 
 }
